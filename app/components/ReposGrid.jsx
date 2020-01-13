@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FaUser, FaStar, FaCodeBranch, FaExclamationTriangle } from 'react-icons/fa'
 import Card from './Card.jsx'
-import Tooltip from './Tooltip.jsx'
+import Tooltip from '../Containers/Tooltip'
 export default function ReposGrid ({repos}){
     return (
       <ul className='grid space-around'>

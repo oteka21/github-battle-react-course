@@ -4,11 +4,13 @@ module.exports = {
   entry: path.resolve(__dirname, 'app/index.js'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.[contenthash].js'
+    filename: 'bundle.[contenthash].js',
+    publicPath: '/'
   },
   mode: 'development',
   devServer: {
-    contentBase: path.join(__dirname, 'dist')
+    contentBase: path.join(__dirname, 'dist'),
+    historyApiFallback: true
   },
   module: {
     rules: [
