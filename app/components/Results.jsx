@@ -5,6 +5,13 @@ import Card from './Card.jsx'
 import PropTypes from 'prop-types'
 import Loading from './Loading.jsx'
 import Tooltip from './Tooltip.jsx'
+import {default as TooltipWithHover} from '../Containers/Tooltip'
+import Hover from '../render-props/Hover.jsx'
+
+
+// Here we have two example of how share logic between components 
+// hocs and render props in our tooltip functionality
+
 function ProfileList({ profile }){
   return (
     <ul className='card-list'>
@@ -14,16 +21,22 @@ function ProfileList({ profile }){
     </li>
     {profile.location && (
       <li>
-        <Tooltip text="User's location">
+        <TooltipWithHover text="User's location">
           <FaCompass color='rgb(144, 115, 255)' size={22} />
           {profile.location}
-        </Tooltip>
+        </TooltipWithHover>
       </li>
     )}
     {profile.company && (
       <li>
-        <FaBriefcase color='#795548' size={22} />
-        {profile.company}
+        <Hover>
+        {(hovering) => console.log(hovering) || (
+          <Tooltip hovering={hovering} text='Github user company'>
+            <FaBriefcase color='#795548' size={22} />
+            {profile.company}
+          </Tooltip>
+        )}
+        </Hover>
       </li>
     )}
     <li>
