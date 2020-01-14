@@ -35,10 +35,5 @@ class Hover extends React.Component{
   }
 }
 
-Hover.propTypes = {
-  render: PropTypes.func.isRequired
-}
-
-
 
 export default Hover

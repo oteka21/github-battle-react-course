@@ -7,6 +7,8 @@ import Loading from './Loading.jsx'
 import Tooltip from './Tooltip.jsx'
 import {default as TooltipWithHover} from '../Containers/Tooltip'
 import Hover from '../render-props/Hover.jsx'
+import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 // Here we have two example of how share logic between components 
@@ -30,7 +32,7 @@ function ProfileList({ profile }){
     {profile.company && (
       <li>
         <Hover>
-        {(hovering) => console.log(hovering) || (
+        {(hovering) => (
           <Tooltip hovering={hovering} text='Github user company'>
             <FaBriefcase color='#795548' size={22} />
             {profile.company}
@@ -56,7 +58,7 @@ ProfileList.propTypes = {
 }
 
 
-export default class Results extends React.Component{
+class Results extends React.Component{
   constructor(props){
     super(props)
 
@@ -69,7 +71,11 @@ export default class Results extends React.Component{
   }
 
   componentDidMount(){
-    const { playerOne, playerTwo } = this.props
+    const { location : { search } } = this.props
+    console.log(this.props)
+    const urlParams = new URLSearchParams(search)
+    const playerOne = urlParams.get('playerOne')
+    const playerTwo = urlParams.get('playerTwo')
     this.setState({
       loading: true
     })
@@ -89,6 +95,7 @@ export default class Results extends React.Component{
   render(){
     const { winner, loser, error, loading } = this.state
     const { onReset } = this.props
+    
     if(loading){
       return <Loading speed={200} text='Cargando' />
     }
@@ -118,17 +125,20 @@ export default class Results extends React.Component{
             <ProfileList {...loser} />
           </Card>
         </div>
-        <button
+        <Link
         className='btn dark-btn btn-space'
-        onClick={onReset}>
+        to='/battle'>
           Reset
-        </button>
+        </Link>
       </>
     )
   }
 }
 
-Results.propTypes = {
-  playerOne: PropTypes.string.isRequired,
-  playerTwo: PropTypes.string.isRequired
-}
+// Results.propTypes = {
+//   playerOne: PropTypes.string.isRequired,
+//   playerTwo: PropTypes.string.isRequired
+// }
+
+
+export default Results

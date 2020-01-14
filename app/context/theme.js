@@ -4,7 +4,7 @@ import React, { createContext, useState } from 'react'
 const Context = createContext({})
 
 export function Provider ({children}){
-  const [ theme, setTheme ] = useState(()=> window.sessionStorage.getItem('theme') || 'light')
+  const [ theme, setTheme ] = useState(()=> window.localStorage.getItem('theme') || 'light')
 
 
   const value = {
@@ -12,7 +12,7 @@ export function Provider ({children}){
     toggleTheme(){
       setTheme(theme => {
         const newTheme = theme === 'light' ? 'dark' : 'light'
-        window.sessionStorage.setItem('theme',newTheme)
+        window.localStorage.setItem('theme',newTheme)
         return newTheme
       })
     }

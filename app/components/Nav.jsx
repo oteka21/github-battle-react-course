@@ -8,7 +8,7 @@ export default function Nav(){
       <div className='row space-between'>
         <ul className='row nav'>
           <li><NavLink className='nav-link' exact activeStyle={{color: 'rgb(187, 46, 31)'}} to='/'>Popular</NavLink></li>
-          <li><NavLink className='nav-link' exact activeStyle={{color: 'rgb(187, 46, 31)'}} to='/battle'>Battle</NavLink></li>
+          <li><NavLink className='nav-link' activeStyle={{color: 'rgb(187, 46, 31)'}} to='/battle'>Battle</NavLink></li>
         </ul>
         <button
         style={{fontSize: 30}}

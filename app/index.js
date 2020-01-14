@@ -4,8 +4,11 @@ import Popular from './components/Popular.jsx'
 import Battle from './components/Battle.jsx'
 import Info from './components/info.jsx'
 import Nav from './components/Nav.jsx'
+import Results  from './components/Results.jsx'
 import { Provider as ThemeProvider } from './context/theme'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Consumer as ThemeConsumer } from './context/theme'
+
 
 import './index.css'
 
@@ -16,12 +19,14 @@ class App extends React.Component{
         <ThemeProvider>
             <div className='container'>
               <Nav />
-              <Route exact path='/'>
-                <Popular />
-              </Route>
-              <Route exact path='/battle'>
-                <Battle />
-              </Route>
+                <Switch>
+                  <Route exact path='/' component={Popular} />
+                  <Route exact path='/battle' component={Battle} />
+                  <Route exact path='/battle/results' component={Results} />
+                  <Route component={() => <ThemeConsumer>
+                  {({theme}) => <h1>404 {theme === 'light' ? '✋🏿' : '✋🏻'}</h1>}
+                  </ThemeConsumer>} />
+                </Switch>
             </div>
         </ThemeProvider>
       </Router>
