@@ -7,7 +7,7 @@ module.exports = {
     filename: 'bundle.[contenthash].js',
     publicPath: '/'
   },
-  mode: 'production',
+  mode:  process.env.NODE_ENV === 'production' ? 'production' : 'development',
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: true

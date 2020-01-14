@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import Popular from './components/Popular.jsx'
-// import Battle from './components/Battle.jsx'
 import Info from './components/info.jsx'
 import Nav from './components/Nav.jsx'
-import Results  from './components/Results.jsx'
+// import Results  from './components/Results.jsx'
 import { Provider as ThemeProvider } from './context/theme'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Consumer as ThemeConsumer } from './context/theme'
@@ -13,6 +12,8 @@ import Loading from './components/Loading.jsx'
 
 
 import './index.css'
+
+const Results = lazy(() => import('./components/Results.jsx'))
 
 class App extends React.Component{
   render(){
@@ -28,10 +29,12 @@ class App extends React.Component{
                       {(Component ) => console.log(Component) || Component ? <Component/> : <Loading text='Cargando en lazy bitch...' speed={300}/>}
                     </DynamicImport>
                   } />
-                  <Route exact path='/battle/results' component={Results} />
-                  <Route render={() => <ThemeConsumer>
-                  {({theme}) => <h1>404 {theme === 'light' ? '✋🏿' : '✋🏻'}</h1>}
-                  </ThemeConsumer>} />
+                  <Suspense fallback={<Loading text='Cargando en lazy bitch...' speed={300} />}>
+                    <Route exact path='/battle/results' component={Results} />
+                    <Route render={() => <ThemeConsumer>
+                    {({theme}) => <h1>404 {theme === 'light' ? '✋🏿' : '✋🏻'}</h1>}
+                    </ThemeConsumer>} />
+                  </Suspense>
                 </Switch>
             </div>
         </ThemeProvider>
